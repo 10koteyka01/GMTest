@@ -23,17 +23,22 @@ namespace GMTest.PageSelectors
             return this;
         }
 
-        public void ClickLoginButton()
+        public MailStartPage ClickLoginButton()
         {
             var loginButtonSelector = "input.o-control";
             driverHelper.ClickButtonBySelector(loginButtonSelector);
+            return this;
         }
 
         public string CheckEntrance()
         {
             var pageTitle = driverHelper.CheckRedirectPage();
-            driverHelper.CloseDriver();
             return pageTitle;
+        }
+
+        public void Quit()
+        {
+            driverHelper.CloseDriver();
         }
     }
 }

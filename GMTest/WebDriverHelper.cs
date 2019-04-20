@@ -35,9 +35,9 @@ namespace GMTest
             FindelementByCss(selector).Click();
         }
 
-        public String CheckRedirectPage()
+        public string CheckRedirectPage()
         {
-            WaitForResult(1000);
+            WaitForResult(10000);
             return _driver.Title;
         }
 
@@ -52,6 +52,6 @@ namespace GMTest
             return _driver.FindElement(By.CssSelector(selector));
         }
 
-        public static void Main(String[] args) { }
+        public static void Main(string[] args) { }
     }
 }
