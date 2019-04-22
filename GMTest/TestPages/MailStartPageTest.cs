@@ -15,15 +15,33 @@ namespace GMTest.TestPages
         }
 
         //В тестах не использовал чек-бокс на стартовой странице Mail.ru
-        [TestCase("Вход", "Test", "TestPassword")]
-        [TestCase("Входящие", "Реальный логин", "Реальный пароль")]//Чтобы этот тест заработал, нужно ввести реально существующую пару login/password.
-        public void LoginPage_InputCredentials(string pageTitle, string login, string password)
+        //Оба теста можно сделать более жёсткими, если добавить парсинг страницы с редиректом, можно воспользоваться регулярным выражением.
+        [Test]
+        public void LoginPage_InputValidAuthData_RedirectToMailBox()
         {
-            var result = _page.SetUpLoginAndPassword(login, password)
-                              .ClickLoginButton()
-                              .CheckEntrance();
+            var redirectUrl = "https://e.mail.ru/messages/inbox";
+            var login = "ivan.test1985.ivanov";
+            var password = "fsfw24dsad2SD";
 
-            Assert.That(result.Contains(pageTitle), $"PageTitle should contain words: {pageTitle}");
+            var result = _page.SetUpLoginAndPassword(login, password)
+                .ClickLoginButton()
+                .IsRedirectedToUrl(redirectUrl);
+
+            Assert.That(result, "After feeling in the valid auth data redirect to mail box wasn't happen");
+        }
+
+        [Test]
+        public void LoginPage_InputWrongAuthData_RedirectToLoginPage()
+        {
+            var redirectUrl = "https://e.mail.ru/login";
+            var login = "Test";
+            var password = "TestPassword";
+
+            var result = _page.SetUpLoginAndPassword(login, password)
+                .ClickLoginButton()
+                .IsRedirectedToUrl(redirectUrl);
+
+            Assert.That(result, "After feeling in the wrong auth data redirect to login page wasn't happen");
         }
 
         [TearDown]

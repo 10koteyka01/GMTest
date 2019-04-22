@@ -35,10 +35,10 @@ namespace GMTest
             FindelementByCss(selector).Click();
         }
 
-        public string CheckRedirectPage()
+        public string GetCurrentURL()
         {
             WaitForResult(10000);
-            return _driver.Title;
+            return _driver.Url;
         }
 
         //Метод можно сделать умнее, чтобы ждал, пока появится IWebElement и потом возвращал этот элемент.

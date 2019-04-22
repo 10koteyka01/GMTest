@@ -30,10 +30,9 @@ namespace GMTest.PageSelectors
             return this;
         }
 
-        public string CheckEntrance()
+        public bool IsRedirectedToUrl(string URL)
         {
-            var pageTitle = driverHelper.CheckRedirectPage();
-            return pageTitle;
+            return driverHelper.GetCurrentURL().Contains(URL);
         }
 
         public void Quit()
